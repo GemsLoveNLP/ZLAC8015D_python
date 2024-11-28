@@ -10,9 +10,7 @@ You can find the main repository that this page is forked from [here](https://gi
 
 ZLAC8015D is used to drive the ZLLG55ASM150 V2.0
 
-![](images/river.jpg)
-
--
+![](images/driver.jpg)
 
 ![](images/motor.jpg)
 
