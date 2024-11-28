@@ -8,34 +8,33 @@ You can find the main repository that this page is forked from [her](https://git
 
 ## Hardware
 
-ZLAC8015D is only compatible with dual 8 inch motors size.
+ZLAC8015D is used to drive the ZLLG55ASM150 V2.0
 
-![](images/motor1.jpg)
+![](images/river.jpg)
 
-![](images/motor2.jpg)
+![](images/motor.jpg)
 
-The wiring diagram used for this project is a modification of th
+The wiring diagram used for this project is a modification of the one from the original repository. The power cable used is of AWG12 standard to protect the machine from current surge. The grounding between the adapter and the battery is omitted.
 
 ![](images/wiring_diagram.png)
+
+The machine running this script should be Ubuntu or Mac
 
 
 ## Installation
 ```sh
 #1. Install dependecies
-## For python2
-sudo pip install pymodbus
-## or python3
-sudo pip3 install pymodbus
+sudo pip install requirements.txt
 
-#2. Install this package
-## For python2
-sudo python setup.py install
-## or python3
-sudo python3 setup.py install
-
-#3. add user to dialout group
+# 2. Get Serial Permission to communicate
 sudo usermod -a -G dialout $USER
+
 ```
+
+## Run
+
+There are, as of the time of writing, 2 scripts to run the motors: run_single.py and run_multiple.py. Both files let you send forward, counterclockwise, backward, and clockwise command to the wheels using W,A,S,D. The run_single requires you to specify the USB port, while the multiple version assumes all ports are wheels and command all of them near simultaneously. 
+
 ## Features
 
 - Velocity control, we can send command RPMs and also read feedback RPMs from the motors, please check on `test_speed_control.py`
