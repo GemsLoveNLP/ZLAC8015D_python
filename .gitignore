@@ -2,5 +2,5 @@ build/
 dist/
 zlac8015d.egg-info/
 __pycache__/
-note.ipynb/
+note/
 
