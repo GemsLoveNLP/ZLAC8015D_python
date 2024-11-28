@@ -7,7 +7,7 @@ RPM_DICT = {"w":[-RPM,RPM],
             "s":[RPM,-RPM],
             "d":[-RPM,-RPM]}
 
-def set_up():
+def connect_motor():
     motors = ZLAC8015D.Controller(port="/dev/ttyUSB0")
 
     motors.disable_motor()
@@ -21,29 +21,36 @@ def set_up():
     return motors
 
 def main():
-    motors = set_up()
-    motors.set_rpm(0,0)
-    last_time = time.time()
+    motors = connect_motor()
+    try:
+        motors.set_rpm(0, 0)
+        last_time = time.time()
 
-    while True:
-        # time.sleep(0.01)
+        while True:
+            # get keyboard input
+            key = input("Enter Key:").lower()
 
-        key = input("Enter Key:").lower()
-        
-        if key in RPM_DICT:
-            cmds = RPM_DICT[key]
-            motors.set_rpm(cmds[0],cmds[1])
+            if key in RPM_DICT:
+                cmds = RPM_DICT[key]
+                motors.set_rpm(cmds[0], cmds[1])
+            else:
+                motors.disable_motor()
+                return
 
-        else:
-            motors.disable_motor()
-            return
-        
-        rpmL, rpmR = motors.get_rpm()
-        period = time.time() - last_time
-        print("Period: {:.4f} rpmL: {:.1f} | rpmR: {:.1f}".format(period,rpmL,rpmR))
-        
-        
+            # report speed
+            rpmL, rpmR = motors.get_rpm()
+            period = time.time() - last_time
+            print("Period: {:.4f} rpmL: {:.1f} | rpmR: {:.1f}".format(period, rpmL, rpmR))
 
+    except KeyboardInterrupt:
+        # Handle keyboard interrupt (Ctrl+C) gracefully
+        print("Keyboard interrupt detected. Disabling motors...")
+        motors.disable_motor()
+
+    except Exception as e:
+        # Call disable_motor() in case of error
+        print(f"An error occurred: {e}")
+        motors.disable_motor()
 
 if __name__ == "__main__":
     main()
