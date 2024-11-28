@@ -4,13 +4,15 @@ This is a simple python package by using pymodbus to be able to access registers
 
 You can find more detail of ZLAC8015D on their official site [here](http://www.zlrobotmotor.com/info/401.html).
 
-You can find the main repository that this page is forked from [her](https://github.com/rasheeddo/ZLAC8015D_python)
+You can find the main repository that this page is forked from [here](https://github.com/rasheeddo/ZLAC8015D_python)
 
 ## Hardware
 
 ZLAC8015D is used to drive the ZLLG55ASM150 V2.0
 
 ![](images/river.jpg)
+
+-
 
 ![](images/motor.jpg)
 
