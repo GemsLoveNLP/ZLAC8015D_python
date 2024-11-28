@@ -16,7 +16,7 @@ last_time = time.time()
 i = 0
 period = 0.0
 while True:
-	try:
+	try: 
 		# motors.set_rpm(cmds[0],cmds[1])
 		l_tick, r_tick = motors.get_wheels_tick()
 

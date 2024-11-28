@@ -15,7 +15,7 @@ motors.enable_motor()
 # cmds = [140, 170]
 #cmds = [100, 50]
 #cmds = [150, -100]
-cmds = [-50, 30]
+cmds = [15,0]
 
 motors.set_rpm(cmds[0],cmds[1])
 

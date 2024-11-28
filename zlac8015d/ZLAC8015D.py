@@ -2,6 +2,8 @@
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 import numpy as np
 
+# to check port use $lsusb and find the device 
+
 class Controller:
 
 	def __init__(self, port="/dev/ttyUSB0"):
@@ -93,10 +95,11 @@ class Controller:
 		##############
 		## Odometry ##
 		##############
-		## 8 inches wheel
-		self.travel_in_one_rev = 0.655
+		# TODO: calculate this value for 5.5 inch
+		## 8 inches wheel 
+		self.travel_in_one_rev = 0.4367
 		self.cpr = 16385
-		self.R_Wheel = 0.105 #meter
+		self.R_Wheel = 0.0695 # 0.139/2 #TODO (meter)
 
 	## Some time if read immediatly after write, it would show ModbusIOException when get data from registers
 	def modbus_fail_read_handler(self, ADDR, WORD):
