@@ -11,6 +11,9 @@ RPM_DICT = {"w":[-RPM,RPM],
 
 
 def connect_motors():
+
+    # TODO: maybe add a check
+    # !: any USB devices might show up here as well. We may need a way to detect that
         
     ports = os.popen('ls /dev/ttyUSB*').read().strip().split("\n")
     motors_lst = []
