@@ -1,8 +1,10 @@
 # A Python package of ZLAC8015D AC Servo Driver
 
-This is a simple python package by using pymodbus to be able to access registers of ZLAC8015D.
+This is a simple python package by using pymodbus to be able to access registers of ZLAC8015D. It uses RS485 communication.
 
 You can find more detail of ZLAC8015D on their official site [here](http://www.zlrobotmotor.com/info/401.html).
+
+You can find the main repository that this page is forked from [her](https://github.com/rasheeddo/ZLAC8015D_python)
 
 ## Hardware
 
@@ -12,7 +14,7 @@ ZLAC8015D is only compatible with dual 8 inch motors size.
 
 ![](images/motor2.jpg)
 
-Along with the driver, you will need to have RS485-USB converter to plug it on your PC. Please check on the following diagram.
+The wiring diagram used for this project is a modification of th
 
 ![](images/wiring_diagram.png)
 

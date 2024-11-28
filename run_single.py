@@ -1,4 +1,5 @@
 from zlac8015d import ZLAC8015D
+import keyboard
 import time
 
 RPM = 15
@@ -7,7 +8,7 @@ RPM_DICT = {"w":[-RPM,RPM],
             "s":[RPM,-RPM],
             "d":[-RPM,-RPM]}
 
-def connect_motor():
+def connect_motors():
     motors = ZLAC8015D.Controller(port="/dev/ttyUSB0")
 
     motors.disable_motor()
@@ -21,7 +22,7 @@ def connect_motor():
     return motors
 
 def main():
-    motors = connect_motor()
+    motors = connect_motors()
     try:
         motors.set_rpm(0, 0)
         last_time = time.time()
@@ -34,6 +35,7 @@ def main():
                 cmds = RPM_DICT[key]
                 motors.set_rpm(cmds[0], cmds[1])
             else:
+                print("Turning off motors and exiting...")
                 motors.disable_motor()
                 return
 
