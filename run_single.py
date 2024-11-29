@@ -2,14 +2,14 @@ from zlac8015d import ZLAC8015D
 import keyboard
 import time
 
-RPM = 15
+RPM = 2
 RPM_DICT = {"w":[-RPM,RPM],
             "a":[RPM,RPM],
             "s":[RPM,-RPM],
             "d":[-RPM,-RPM]}
 
 def connect_motors():
-    motors = ZLAC8015D.Controller(port="/dev/ttyUSB0")
+    motors = ZLAC8015D.Controller(port=f"/dev/ttyUSB{input('USB: ')}")
 
     motors.disable_motor()
 
