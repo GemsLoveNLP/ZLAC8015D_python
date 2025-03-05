@@ -3,7 +3,7 @@ import keyboard
 import time
 import os
 
-RPM = 3
+RPM = 10
 RPM_DICT = {"w":[-RPM,RPM],
             "a":[RPM,RPM],
             "s":[RPM,-RPM],

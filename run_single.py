@@ -2,7 +2,7 @@ from zlac8015d import ZLAC8015D
 import keyboard
 import time
 
-RPM = 2
+RPM = 100
 RPM_DICT = {"w":[-RPM,RPM],
             "a":[RPM,RPM],
             "s":[RPM,-RPM],
