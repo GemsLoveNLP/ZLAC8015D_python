@@ -3,20 +3,21 @@ import keyboard
 import time
 import os
 
-RPM = 10
+RPM = 15
 RPM_DICT = {"w":[-RPM,RPM],
-            "a":[RPM,RPM],
+            # "a":[RPM,RPM],
             "s":[RPM,-RPM],
-            "d":[-RPM,-RPM],
+            # "d":[-RPM,-RPM],
             "x":[0,0]}
 
 
-def connect_motors():
+def connect_motors(ports = ["/dev/ttyUSB2","/dev/ttyUSB3"]):
 
     # TODO: maybe add a check
     # !: any USB devices might show up here as well. We may need a way to detect that
         
-    ports = os.popen('ls /dev/ttyUSB*').read().strip().split("\n")
+    # ports = os.popen('ls /dev/ttyUSB*').read().strip().split("\n")
+    
     motors_lst = []
 
     for port in ports:

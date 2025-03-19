@@ -3,8 +3,8 @@ from zlac8015d import ZLAC8015D
 class Motors:
 
     # subject to change
-    front_port = "/dev/ttyUSB0"
-    rear_port = "/dev/ttyUSB1"
+    front_port = "/dev/ttyUSB2"
+    rear_port = "/dev/ttyUSB3"
 
     def __init__(self):
 
@@ -36,8 +36,8 @@ class Motors:
     def set_vel(self, vel_list):
 
         # set velocity
-        self.front.set_rpm(vel_list[0],vel_list[1])
-        self.rear.set_rpm(vel_list[2],vel_list[3])
+        self.front.set_rpm(-vel_list[0],vel_list[1])
+        self.rear.set_rpm(vel_list[2],-vel_list[3])
 
     def get_tick(self):
 
