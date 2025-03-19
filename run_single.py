@@ -2,14 +2,16 @@ from zlac8015d import ZLAC8015D
 import keyboard
 import time
 
-RPM = 100
+RPM = 5
 RPM_DICT = {"w":[-RPM,RPM],
             "a":[RPM,RPM],
             "s":[RPM,-RPM],
-            "d":[-RPM,-RPM]}
+            "d":[-RPM,-RPM],
+            "x":[0,0]}
+
 
 def connect_motors():
-    motors = ZLAC8015D.Controller(port=f"/dev/ttyUSB{input('USB: ')}")
+    motors = ZLAC8015D.Controller(port=f"/dev/ttyUSB0")
 
     motors.disable_motor()
 
@@ -21,15 +23,24 @@ def connect_motors():
 
     return motors
 
+# def get_tick(motors):
+#     l_tick, r_tick = motors.get_wheels_tick()
+#     return l_tick, r_tick
+
 def main():
     motors = connect_motors()
     try:
         motors.set_rpm(0, 0)
         last_time = time.time()
 
+        L_TICK, R_TICK = motors.get_wheels_tick()
+        print(f"Initial l_tick: {L_TICK}, r_tick: {R_TICK}")
+        old_l_tick, old_r_tick = L_TICK, R_TICK
+
         while True:
             # get keyboard input
             key = input("Enter Key:").lower()
+            # key = 0
 
             if key in RPM_DICT:
                 cmds = RPM_DICT[key]
@@ -42,7 +53,18 @@ def main():
             # report speed
             rpmL, rpmR = motors.get_rpm()
             period = time.time() - last_time
+            l_tick, r_tick = motors.get_wheels_tick()
+            dl, dr = motors.get_wheels_travelled()
+
             print("Period: {:.4f} rpmL: {:.1f} | rpmR: {:.1f}".format(period, rpmL, rpmR))
+            
+            print(f"l_tick: {l_tick}, r_tick: {r_tick}")
+            print(f"abs l_tick: {l_tick-L_TICK} abs r_tick: {r_tick-R_TICK}")
+            print(f"rel l_tick: {l_tick-old_l_tick} rel r_tick: {r_tick-old_r_tick}")
+            
+            print(f"dl: {dl}, dr: {dr}")
+
+            old_l_tick, old_r_tick = l_tick, r_tick
 
     except KeyboardInterrupt:
         # Handle keyboard interrupt (Ctrl+C) gracefully
