@@ -1,6 +1,7 @@
 from zlac8015d import ZLAC8015D
 import keyboard
 import time
+import math
 
 RPM = 30
 RPM_DICT = {"w":[-RPM,RPM],
@@ -52,34 +53,59 @@ def main():
         # print(motors.get_wheels_travelled())
         # diff = 0.011435 m
 
-        while True:
+        # while True:
             # get keyboard input
-            key = input("Enter Key:").lower()
-            # key = 0
+            # key = input("Enter Key:").lower()
+            # # key = 0
 
-            if key in RPM_DICT:
-                cmds = RPM_DICT[key]
-                motors.set_rpm(cmds[0], cmds[1])
-            else:
-                print("Turning off motors and exiting...")
-                motors.disable_motor()
-                return
+            # if key in RPM_DICT:
+            #     cmds = RPM_DICT[key]
+            #     motors.set_rpm(cmds[0], cmds[1])
+            # else:
+            #     print("Turning off motors and exiting...")
+            #     motors.disable_motor()
+            #     return
 
-            # report speed
-            rpmL, rpmR = motors.get_rpm()
-            period = time.time() - last_time
-            l_tick, r_tick = motors.get_wheels_tick()
-            dl, dr = motors.get_wheels_travelled()
+            # # report speed
+            # rpmL, rpmR = motors.get_rpm()
+            # period = time.time() - last_time
+            # l_tick, r_tick = motors.get_wheels_tick()
+            # dl, dr = motors.get_wheels_travelled()
 
-            print("Period: {:.4f} rpmL: {:.1f} | rpmR: {:.1f}".format(period, rpmL, rpmR))
+            # print("Period: {:.4f} rpmL: {:.1f} | rpmR: {:.1f}".format(period, rpmL, rpmR))
             
-            print(f"l_tick: {l_tick}, r_tick: {r_tick}")
-            print(f"abs l_tick: {l_tick-L_TICK} abs r_tick: {r_tick-R_TICK}")
-            print(f"rel l_tick: {l_tick-old_l_tick} rel r_tick: {r_tick-old_r_tick}")
+            # print(f"l_tick: {l_tick}, r_tick: {r_tick}")
+            # print(f"abs l_tick: {l_tick-L_TICK} abs r_tick: {r_tick-R_TICK}")
+            # print(f"rel l_tick: {l_tick-old_l_tick} rel r_tick: {r_tick-old_r_tick}")
             
-            print(f"dl: {dl}, dr: {dr}")
+            # print(f"dl: {dl}, dr: {dr}")
 
-            old_l_tick, old_r_tick = l_tick, r_tick
+            # old_l_tick, old_r_tick = l_tick, r_tick
+
+        rpm_read_list = []
+        real_rpm = []
+        dist_read_list = []
+        real_dist = []
+        wheels_traveled_l, wheels_traveled_r = motors.get_wheels_travelled()
+        for rpm in [5, 10, 15, 20, 30, 60]:
+            for dt in [1, 2, 5, 10, 30, 60]:
+                motors.set_rpm(-rpm,rpm)
+                time.sleep(dt)
+                rpml, rpmr = motors.get_rpm()
+                rpm_read = (-rpml + rpmr)/2
+                wheels_read_l, wheels_read_r = motors.get_wheels_travelled()
+                wheels_read = ((wheels_read_l-wheels_traveled_l)*-1+(wheels_read_r-wheels_traveled_r))/2
+                rpm_read_list.append(rpm_read)
+                dist_read_list.append(wheels_read)
+                print(rpm_read,wheels_read)
+                wheels_traveled_l, wheels_traveled_r = wheels_read_l, wheels_read_r
+
+                dl = 0.0695*(rpm*2*math.pi/60)*dt
+                real_rpm.append(rpm)
+                real_dist.append(dl)
+                print(rpm,dl)
+
+        print(rpm_read_list, dist_read_list)
 
     except KeyboardInterrupt:
         # Handle keyboard interrupt (Ctrl+C) gracefully
