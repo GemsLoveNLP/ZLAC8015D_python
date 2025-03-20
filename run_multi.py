@@ -43,6 +43,9 @@ def main():
         last_time = time.time()
         for port, motors, l_tick_i,r_tick_i in motors_lst:
             motors.set_rpm(0, 0)
+
+        
+
         while True:
             # get keyboard input
             key = input("Enter Key:").lower()

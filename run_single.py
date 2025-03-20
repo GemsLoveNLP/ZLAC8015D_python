@@ -2,7 +2,7 @@ from zlac8015d import ZLAC8015D
 import keyboard
 import time
 
-RPM = 5
+RPM = 30
 RPM_DICT = {"w":[-RPM,RPM],
             "a":[RPM,RPM],
             "s":[RPM,-RPM],
@@ -15,8 +15,9 @@ def connect_motors():
 
     motors.disable_motor()
 
-    motors.set_accel_time(1000,1000)
-    motors.set_decel_time(1000,1000)
+    x = 100
+    motors.set_accel_time(x,x)
+    motors.set_decel_time(x,x)
 
     motors.set_mode(3)
     motors.enable_motor()
@@ -34,8 +35,22 @@ def main():
         last_time = time.time()
 
         L_TICK, R_TICK = motors.get_wheels_tick()
+        D_L, D_R = motors.get_wheels_travelled()
         print(f"Initial l_tick: {L_TICK}, r_tick: {R_TICK}")
+        print(f"Initial D_L: {D_L}, D_R: {D_R}")
         old_l_tick, old_r_tick = L_TICK, R_TICK
+        old_dl, old_dr = D_L, D_R
+
+        # cmds = RPM_DICT["w"]
+        # motors.set_rpm(cmds[0], cmds[1])
+        # print(motors.get_wheels_travelled())
+
+        # time.sleep(120)
+        
+        # cmds = RPM_DICT["x"]
+        # motors.set_rpm(cmds[0], cmds[1])
+        # print(motors.get_wheels_travelled())
+        # diff = 0.011435 m
 
         while True:
             # get keyboard input

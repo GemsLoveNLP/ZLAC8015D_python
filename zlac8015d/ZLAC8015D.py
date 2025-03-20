@@ -97,8 +97,8 @@ class Controller:
 		##############
 		# TODO: calculate this value for 5.5 inch
 		## 8 inches wheel 
-		self.travel_in_one_rev = 0.4367
-		self.cpr = 16385
+		self.travel_in_one_rev = 0.4336681
+		self.cpr = 16385 #1024
 		self.R_Wheel = 0.0695 # 0.139/2 #TODO (meter)
 
 	## Some time if read immediatly after write, it would show ModbusIOException when get data from registers
